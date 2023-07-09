@@ -24,6 +24,12 @@ def api_event_list(request):
         'all': EventSerializer(events_all, many=True).data
     }, safe=False)
 
+@api_view(['GET'])
+def api_get_one_event(request, event_id):
+    _event = event.objects.get(id=event_id)
+
+    return JsonResponse(EventSerializer(_event).data)
+
 
 
 

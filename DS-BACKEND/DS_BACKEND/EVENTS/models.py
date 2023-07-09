@@ -10,6 +10,8 @@ class event(models.Model):
     event_description = models.TextField(max_length=50000)
     poster = models.ImageField(
         upload_to='eventPosters/', blank=True, null=True)
+    event_datetime = models.DateTimeField(
+        'Date of event : ', auto_now_add=False)
     event_mode = models.CharField(
         max_length=15, choices=MODE, default='Online')
 
