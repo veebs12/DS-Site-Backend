@@ -31,6 +31,7 @@ def get_alumni(request):
 def get_all_members(request):
     pass
 
+
 @api_view(['GET'])
 def get_sophomores(request):
     member2 = Member.objects.filter(passout_year="2026").order_by('firstname')
