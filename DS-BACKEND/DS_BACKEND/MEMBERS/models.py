@@ -4,15 +4,19 @@ YEAR = (
     ('Third', 'Third'),
     ('Fourth', 'Fourth'),
 )
+PASSOUT = (
+    ('2026','2026'),
+    ('2025','2025'),
+    ('2024','2024'),
+)
 
-class Members(models.Model):
+class Member(models.Model):
     sno = models.IntegerField(blank=True, null=True)
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
-    email = models.EmailField(max_length=254, null=True, blank=True)
-    year = models.CharField(max_length=10, choices=YEAR, default='Second')
-    post = models.CharField(max_length=100, null=True,
-                            blank=True, default='Senior Member')
+    current_year = models.CharField(max_length=10, choices=YEAR, default='Second')
+    passout_year = models.CharField(max_length=10, choices=PASSOUT, default='2026')
+    post = models.CharField(max_length=100, null=True,blank=True, default='Senior Member')
     dp = models.ImageField(upload_to='memberDPs/', blank=True, null=True)
     instagram_url = models.URLField(max_length=300, null=True, blank=True)
     linkedin_url = models.URLField(max_length=300, null=True, blank=True)
@@ -23,11 +27,10 @@ class Members(models.Model):
         return self.firstname
 
 
-class Alumni(models.Model):
+class Alum(models.Model):
     sno = models.IntegerField(blank=True, null=True)
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255, blank=True, default="")
-    email = models.EmailField(max_length=254, null=True, blank=True)
     passout_year = models.CharField(max_length=10, default='2017')
     dp = models.ImageField(upload_to='alumniDPs/', blank=True, null=True)
     facebook_url = models.URLField(max_length=300, null=True, blank=True)
