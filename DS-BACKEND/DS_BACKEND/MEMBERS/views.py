@@ -6,31 +6,30 @@ from .serializers import *
 @api_view(['GET'])
 def DSmembersOverview(request):
     members_urls = {
-        'current-members' : '/current-members/',
-        'alumni' : '/alumni/',
-        'all-members' : '/all-members/',
-        'sophomores' : '/sophmores/',
-        'pre-final-years' : '/pre-final-years/',
-        'final-years' : '/final-years/',
+        'current-members' : '/api/members/current-members/',
+        'alumni' : '/api/members/alumni/',
+    # 'all-members' : '/api/members/all-members/<str:pk>/',
+        'sophomores' : '/api/members/sophomores/',
+        'pre-final-years' : '/api/members/pre-final-years/',
+        'final-years' : '/api/members/final-years/',
     }
     return JsonResponse(members_urls)
 
 @api_view(['GET'])
 def get_current_members(request):
-    members = Member.objects.all().order_by('firstname')
+    members = Member.objects.exclude(current_year = "NA").order_by('firstname')
     serializer = MemberSerializer(members, many = True)
     return JsonResponse(serializer.data,safe=False)
 
 @api_view(['GET'])
 def get_alumni(request):
-    alums = Alum.objects.all().order_by('firstname')
-    serializer = AlumniSerializer(alums, many = True)
+    alums = Member.objects.filter(current_year = "NA").order_by('firstname')
+    serializer = MemberSerializer(alums, many = True)
     return JsonResponse(serializer.data,safe=False)
 
-@api_view(['GET'])
-def get_all_members(request):
-    pass
-
+# @api_view(['GET'])
+# def get_all_members(request):
+   
 
 @api_view(['GET'])
 def get_sophomores(request):
