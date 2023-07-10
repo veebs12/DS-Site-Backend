@@ -8,7 +8,7 @@ def DSmembersOverview(request):
     members_urls = {
         'current-members' : '/api/members/current-members/',
         'alumni' : '/api/members/alumni/',
-    # 'all-members' : '/api/members/all-members/<str:pk>/',
+        'all-members' : '/api/members/all-members/<int:passout_yr>/',
         'sophomores' : '/api/members/sophomores/',
         'pre-final-years' : '/api/members/pre-final-years/',
         'final-years' : '/api/members/final-years/',
@@ -27,9 +27,11 @@ def get_alumni(request):
     serializer = MemberSerializer(alums, many = True)
     return JsonResponse(serializer.data,safe=False)
 
-# @api_view(['GET'])
-# def get_all_members(request):
-   
+@api_view(['GET'])
+def get_all_members(request,passout_yr):
+    passout = Member.objects.filter(id=passout_yr)
+    serializer = MemberSerializer(passout, many = True)
+    return JsonResponse(serializer.data,safe=False)  
 
 @api_view(['GET'])
 def get_sophomores(request):
