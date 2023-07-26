@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from datetime import datetime, timedelta
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from .models import event
 from rest_framework.decorators import api_view
 from .serializers import *
@@ -26,9 +26,13 @@ def api_event_list(request):
 
 @api_view(['GET'])
 def api_get_one_event(request, event_id):
-    _event = event.objects.get(id=event_id)
+    try:
+        _event = event.objects.get(id=event_id)
 
-    return JsonResponse(EventSerializer(_event).data)
+        return JsonResponse(EventSerializer(_event).data)
+    
+    except Http404:
+        return JsonResponse({"error": "Event not found."}, status=404)
 
 
 
