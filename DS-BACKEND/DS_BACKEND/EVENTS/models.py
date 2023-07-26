@@ -20,7 +20,7 @@ class event(models.Model):
     event_endtime = models.DateTimeField(
         "End date of the event: ", auto_now_add=False)
 
-    active = models.BooleanField(default=True, max_length=50000)
+    
     text1 = models.CharField(blank=True, max_length=20)
     url1 = models.CharField(blank=True, max_length=500)
     text2 = models.CharField(blank=True, max_length=20)

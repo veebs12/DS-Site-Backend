@@ -15,7 +15,7 @@ def api_event_list(request):
                                            ).order_by('-event_datetime')
     events_live = event.objects.filter(active=True, event_starttime__lt=datetime.now(
     ), event_endtime__gt=datetime.now()).order_by('-event_datetime')
-    events_past = event.objects.filter(active=False, event_starttime__lt=datetime.now(), event_endtime__lt=datetime.now())
+    events_past = event.objects.filter(active=True, event_starttime__lt=datetime.now(), event_endtime__lt=datetime.now())
 
     return JsonResponse({
         'upcoming': EventSerializer(events_upcoming, many=True).data,
@@ -23,6 +23,38 @@ def api_event_list(request):
         'past':EventSerializer(events_past,many=True).data,
         'all': EventSerializer(events_all, many=True).data
     }, safe=False)
+
+@api_view(['GET'])
+def api_all_events(request):
+    events_all = event.objects.filter(active=True).order_by('-event_datetime')
+
+    return JsonResponse({'all': EventSerializer(events_all, many=True).data})
+
+@api_view(['GET'])
+def api_past_events(request):
+    events_past = event.objects.filter(active=True, event_starttime__lt=datetime.now(), event_endtime__lt=datetime.now())
+    
+
+    return JsonResponse({'past':EventSerializer(events_past,many=True).data})
+
+@api_view(['GET'])
+def api_live_events(request):
+    events_live = event.objects.filter(active=True, event_starttime__lt=datetime.now(
+    ), event_endtime__gt=datetime.now()).order_by('-event_datetime')
+    
+
+    return JsonResponse({'live': EventSerializer(events_live, many=True).data})
+
+@api_view(['GET'])
+def api_upcoming_events(request):
+    events_upcoming = event.objects.filter(active=True,
+                                           event_starttime__gt=datetime.now(),
+                                           event_starttime__lt=datetime.now() + timedelta(days=15)
+                                           ).order_by('-event_datetime')
+    
+
+    return JsonResponse({'upcoming': EventSerializer(events_upcoming, many=True).data})
+
 
 @api_view(['GET'])
 def api_get_one_event(request, event_id):
