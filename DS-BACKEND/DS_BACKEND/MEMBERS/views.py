@@ -29,7 +29,7 @@ def get_alumni(request):
 
 @api_view(['GET'])
 def get_all_members(request,passout_yr):
-    passout = Member.objects.filter(id=passout_yr)
+    passout = Member.objects.filter(passout_yr=passout_yr)
     serializer = MemberSerializer(passout, many = True)
     return JsonResponse(serializer.data,safe=False)  
 

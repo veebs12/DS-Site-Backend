@@ -11,7 +11,7 @@ class Member(models.Model):
     sno = models.IntegerField(blank=True, null=True)
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
-    current_year = models.CharField(max_length=10, choices=YEAR, default='NA')
+    #current_year = models.CharField(max_length=10, choices=YEAR, default='NA')
     passout_year = models.CharField(max_length=10, default='2017')
     post = models.CharField(max_length=100, null=True,blank=True, default='NA')
     dp = models.ImageField(upload_to='memberDPs/', blank=True, null=True)
