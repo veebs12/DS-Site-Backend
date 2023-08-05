@@ -2,6 +2,13 @@ from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from .models import *
 from .serializers import *
+from django.utils import timezone as tz
+
+def get_current_batch():
+    date = tz.now()
+    if date.month > 6:
+        return date.year + 1
+    return date.year
 
 @api_view(['GET'])
 def DSmembersOverview(request):
@@ -29,22 +36,25 @@ def get_alumni(request):
 
 @api_view(['GET'])
 def get_all_members(request,passout_yr):
-    passout = Member.objects.filter(passout_yr=passout_yr)
+    passout = Member.objects.filter(passout_year=passout_yr)
     serializer = MemberSerializer(passout, many = True)
     return JsonResponse(serializer.data,safe=False)  
 
 @api_view(['GET'])
 def get_sophomores(request):
-    member2 = Member.objects.filter(passout_year="2026").order_by('firstname')
+    year = get_current_batch()
+    member2 = Member.objects.filter(passout_year=year+2).order_by('firstname')
     return JsonResponse(MemberSerializer(member2, many=True).data, safe=False)
 
 @api_view(['GET'])
 def get_pre_final_years(request):
-    member3 = Member.objects.filter(passout_year="2025").order_by('firstname')
+    year = get_current_batch()
+    member3 = Member.objects.filter(passout_year=year+1).order_by('firstname')
     return JsonResponse(MemberSerializer(member3, many=True).data, safe=False)
-  
+
 @api_view(['GET'])
 def get_final_years(request):
-    member4 = Member.objects.filter(passout_year="2024").order_by('firstname')
+    year = get_current_batch()
+    member4 = Member.objects.filter(passout_year=year).order_by('firstname')
     return JsonResponse(MemberSerializer(member4, many=True).data, safe=False)
-    
+
