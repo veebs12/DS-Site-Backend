@@ -24,13 +24,15 @@ def DSmembersOverview(request):
 
 @api_view(['GET'])
 def get_current_members(request):
-    members = Member.objects.exclude(current_year = "NA").order_by('firstname')
+    year = get_current_batch()
+    members = Member.objects.filter(passout_year__gte=year).order_by('firstname')
     serializer = MemberSerializer(members, many = True)
     return JsonResponse(serializer.data,safe=False)
 
 @api_view(['GET'])
 def get_alumni(request):
-    alums = Member.objects.filter(current_year = "NA").order_by('firstname')
+    year = get_current_batch()
+    alums = Member.objects.filter(passout_year__lt=year).order_by('firstname')
     serializer = MemberSerializer(alums, many = True)
     return JsonResponse(serializer.data,safe=False)
 
