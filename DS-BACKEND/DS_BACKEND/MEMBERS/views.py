@@ -1,7 +1,10 @@
 from rest_framework.decorators import api_view
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import *
 from .serializers import *
+from .forms import *
+
 
 @api_view(['GET'])
 def DSmembersOverview(request):
@@ -47,4 +50,17 @@ def get_pre_final_years(request):
 def get_final_years(request):
     member4 = Member.objects.filter(passout_year="2024").order_by('firstname')
     return JsonResponse(MemberSerializer(member4, many=True).data, safe=False)
+
+def members_form(request):
+    if request.method == 'POST':
+        form = MemberCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('success') 
+    else:
+        form = MemberCreationForm()
+
+    return render(request, 'members/create_members.html', {'form': form})
+
+
     

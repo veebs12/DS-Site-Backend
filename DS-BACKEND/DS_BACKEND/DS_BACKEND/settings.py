@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'MEMBERS',
     'rest_framework',
     'EVENTS',
+    
 ]
 
 MIDDLEWARE = [

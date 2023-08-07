@@ -9,4 +9,5 @@ urlpatterns = [
     path('api/members/sophomores/', views.get_sophomores, name="sophomores"),
     path('api/members/pre-final-years/', views.get_pre_final_years, name="pre-final-years"),
     path('api/members/final-years/', views.get_final_years, name="final-years"),
+    path('create_members/', views.members_form, name="create_members"),
   ]
