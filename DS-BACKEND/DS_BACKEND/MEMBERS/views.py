@@ -56,7 +56,7 @@ def members_form(request):
         form = MemberCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('success') 
+            return render(request, 'members/success.html') 
     else:
         form = MemberCreationForm()
 
