@@ -72,29 +72,32 @@ input[type="submit"]:hover {
         <h1>Create Member</h1>
         <form method="POST">
             {% csrf_token %}
-            <label for="fname">Firstname:</label>
-            <input type="text" name="fname" required>
+            <label for="firstname">Firstname:</label>
+            <input type="text" name="firstname" required>
             <br>
-            <label for="lname">Lastname:</label>
-            <input type="text" name="lname" required>
+            <label for="lastname">Lastname:</label>
+            <input type="text" name="lastname" required>
             <br>
-            <label for="year">Pass out year:</label>
-            <input type="number" name="year" required>
+            <label for="passout_year">Pass out year:</label>
+            <input type="number" name="passout_year" required>
             <br>
             <label for="post">Post:</label>
             <input type="text" name="post" required>
             <br>
             <label for="dp">Dp:</label>
-            <input type="image" name="dp" required>
+            <input type="file" name="dp" required>
             <br>
-            <label for="instaurl">Instagram url:</label>
-            <input type="url" name="instaurl" required>
+            <label for="instagram_url">Instagram url:</label>
+            <input type="url" name="instagram_url" required>
             <br>
-            <label for="lkdurl">Linkedin url:</label>
-            <input type="url" name="lkdurl" required>
+            <label for="linkedin_url">Linkedin url:</label>
+            <input type="url" name="linkedin_url" required>
             <br>
-            <label for="giturl">GitHub url:</label>
-            <input type="url" name="giturl" required>
+            <label for="facebook_url">Facebook url:</label>
+            <input type="url" name="facebook_url" required>
+            <br>
+            <label for="github_url">GitHub url:</label>
+            <input type="url" name="github_url" required>
             <br>
             <input type="submit" value="Create Member">
         </form>
