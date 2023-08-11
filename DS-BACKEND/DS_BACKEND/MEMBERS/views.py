@@ -53,7 +53,7 @@ def get_final_years(request):
 
 def members_form(request):
     if request.method == 'POST':
-        form = MemberCreationForm(request.POST)
+        form = MemberCreationForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             return render(request, 'members/success.html') 
