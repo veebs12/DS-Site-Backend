@@ -70,7 +70,7 @@ input[type="submit"]:hover {
 <body>
     <div class="container">
         <h1>Create Member</h1>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <label for="firstname">Firstname:</label>
             <input type="text" name="firstname" required>
@@ -97,7 +97,7 @@ input[type="submit"]:hover {
             <input type="url" name="facebook_url" >
             <br>
             <label for="github_url">GitHub url:</label>
-            <input type="url" name="github_url" >
+            <input type="url" name="github_url">
             <br>
             <input type="submit" value="Create Member">
         </form>
